@@ -9,7 +9,23 @@ export default function FormCliente () {
 
     const { state } = useLocation();
     const [idEntregador, setEntregador] = useState();
-
+    const [nome, setNome] = useState();
+    const [cpf, setCpf] = useState();
+    const [dataNascimento, setDataNascimento] = useState();
+    const [foneCelular, setFoneCelular] = useState();
+    const [foneFixo, setFoneFixo] = useState();
+    const [rg, setRG] = useState();
+    const [entregasRealizadas, setEntregasRealizadas] = useState();
+    const [valorFrete, setValorFrete] = useState();
+    const [rua, setRua] = useState();
+    const [numeroEndereco, setNumeroEndereco] = useState();
+    const [bairro, setBairro] = useState();
+    const [cidade, setCidade] = useState();
+    const [cep, setCep] = useState();
+    const [uf, setUf] = useState();
+    const [complemento, setComplemento] = useState();
+    const [ativo, setAtivo] = useState();
+    
 
     useEffect(() => {
         if (state != null && state.id != null) {
@@ -21,15 +37,21 @@ export default function FormCliente () {
                         setDataNascimento(response.data.dataNascimento)
                         setFoneCelular(response.data.foneCelular)
                         setFoneFixo(response.data.foneFixo)
+                        setRG(response.data.rg)
+                        setEntregasRealizadas(response.data.entregasRealizadas)
+                        setValorFrete(response.data.valorFrete)
+                        setRua(response.data.rua)
+                        setNumeroEndereco(response.data.numeroEndereco)
+                        setBairro(response.data.bairro)
+                        setCidade(response.data.cidade)
+                        setCep(response.data.cep)
+                        setUf(response.data.uf)
+                        setComplemento(response.data.complemento)
+                        setAtivo(response.data.ativo)
             })
         }
 }, [state])
 
-    const [nome, setNome] = useState();
-    const [cpf, setCpf] = useState();
-    const [dataNascimento, setDataNascimento] = useState();
-    const [foneCelular, setFoneCelular] = useState();
-    const [foneFixo, setFoneFixo] = useState();
 
     function salvar() {
 
@@ -38,7 +60,18 @@ export default function FormCliente () {
             cpf: cpf,
             dataNascimento: dataNascimento,
             foneCelular: foneCelular,
-            foneFixo: foneFixo
+            foneFixo: foneFixo,
+            rg: rg,
+            entregasRealizadas: entregasRealizadas,
+            valorFrete: valorFrete,
+            rua: rua,
+            numeroEndereco: numeroEndereco,
+            bairro: bairro,
+            cidade: cidade,
+            cep: cep,
+            uf: uf,
+            complemento: complemento,
+            ativo: ativo
         }
 
         if (idEntregador != null) { //Alteração:
@@ -77,6 +110,7 @@ export default function FormCliente () {
                                     fluid
                                     label='Nome'
                                     maxLength="100"
+                                    onChange={e => setNome(e.target.value)}
                                 />
 
                                 <Form.Input
@@ -87,13 +121,16 @@ export default function FormCliente () {
                                     <InputMask
                                         required
                                         mask="999.999.999-99"
+                                        onChange={e => setCpf(e.target.value)}
                                     />
                                 </Form.Input>
 
                                 <Form.Input
                                     fluid
                                     label='RG'
-                                    width={6}>
+                                    width={6}
+                                    onChange={e => setRG(e.target.value)}
+                                    >
                                 </Form.Input>
 
                             </Form.Group>
@@ -106,6 +143,7 @@ export default function FormCliente () {
                                     width={4}>
                                     <InputMask
                                         mask="99/99/9999"
+                                        onChange={e => setDataNascimento(e.target.value)}
                                     />
                                 </Form.Input>
 
@@ -116,6 +154,7 @@ export default function FormCliente () {
                                     width={6}>
                                     <InputMask
                                         mask="(99) 9999.9999"
+                                        onChange={e => setFoneCelular(e.target.value)}
                                     />
                                 </Form.Input>
 
@@ -123,19 +162,25 @@ export default function FormCliente () {
                                     required
                                     fluid
                                     label='Fone Fixo'
-                                    width={6}>
+                                    width={6}
+                                    onChange={e => setFoneFixo(e.target.value)}
+                                    >
                                 </Form.Input>
 
                                 <Form.Input
                                     fluid
                                     label='QT Entregas Realizadas'
-                                    width={4}>
+                                    width={4}
+                                    onChange={e => setEntregasRealizadas(e.target.value)}
+                                    >
                                 </Form.Input>
 
                                 <Form.Input
                                     fluid
                                     label='Valor Por Frete'
-                                    width={4}>
+                                    width={4}
+                                    onChange={e => setValorFrete(e.target.value)}
+                                    >
                                 </Form.Input>
 
                             </Form.Group>
@@ -144,13 +189,17 @@ export default function FormCliente () {
                                 
                                 <Form.Input
                                     fluid
-                                    label='Rua'>
+                                    label='Rua'
+                                    onChange={e => setRua(e.target.value)}
+                                    >
                                 </Form.Input>
 
                                 <Form.Input
                                     fluid
                                     label='Número'
-                                    width={4}>
+                                    width={4}
+                                    onChange={e => setNumeroEndereco(e.target.value)}
+                                    >
                                 </Form.Input>
 
                             </Form.Group>
@@ -159,18 +208,24 @@ export default function FormCliente () {
 
                                 <Form.Input
                                     fluid
-                                    label='Bairro'>
+                                    label='Bairro'
+                                    onChange={e => setBairro(e.target.value)}
+                                    >
                                 </Form.Input>
 
                                 <Form.Input
                                     fluid
-                                    label='Cidade'>
+                                    label='Cidade'
+                                    onChange={e => setCidade(e.target.value)}
+                                    >
                                 </Form.Input>
 
                                 <Form.Input
                                     fluid
                                     label='CEP'
-                                    width={4}>
+                                    width={4}
+                                    onChange={e => setCep(e.target.value)}
+                                    >
                                 </Form.Input>
 
                             </Form.Group>
@@ -179,7 +234,9 @@ export default function FormCliente () {
 
                                 <Form.Input
                                     fluid
-                                    label='UF'>
+                                    label='UF'
+                                    onChange={e => setUf(e.target.value)}
+                                    >
                                         <Select
                                             placeholder="Selecione"
                                             width={80}>
@@ -192,13 +249,17 @@ export default function FormCliente () {
                             <Form.Group widths='equal'>
                                     <Form.Input
                                         fluid
-                                        label='Complemento'>
+                                        label='Complemento'
+                                        onChange={e => setComplemento(e.target.value)}
+                                        >
                                     </Form.Input>
                             </Form.Group>
 
                             <Form.Group widths='equal'>
                                 <Form.Input
-                                label='Ativo:'>
+                                label='Ativo:'
+                                onChange={e => setAtivo(e.target.value)}
+                                >
                                     &nbsp;
                                     <Radio
                                         label='Sim'
