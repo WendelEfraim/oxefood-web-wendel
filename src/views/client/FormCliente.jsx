@@ -41,7 +41,7 @@ export default function FormCliente () {
             foneCelular: foneCelular,
             foneFixo: foneFixo
         }
- 
+
         if (idCliente != null) { //Alteração:
             axios.put("http://localhost:8080/api/cliente/" + idCliente, clienteRequest)
             .then((response) => { console.log('Cliente alterado com sucesso.') })
@@ -51,8 +51,8 @@ export default function FormCliente () {
             .then((response) => { console.log('Cliente cadastrado com sucesso.') })
             .catch((error) => { console.log('Erro ao incluir o cliente.') })
         }
- }
- 
+}
+
 
 
     return (
@@ -147,7 +147,8 @@ export default function FormCliente () {
                         </Form>
                         
                         <div style={{marginTop: '4%'}}>
-
+                            
+                        <Link to={'/list-cliente'}>
                             <Button
                                 type="button"
                                 inverted
@@ -157,9 +158,10 @@ export default function FormCliente () {
                                 color='orange'
                             >
                                 <Icon name='reply' />
-                                <Link to={'/list-cliente'}>Voltar</Link>
+                                Voltar
                             </Button>
-                                
+                        </Link>
+
                             <Button
                                 inverted
                                 circular
