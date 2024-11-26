@@ -5,10 +5,11 @@ import { Button, Container, Divider, Form, Icon, Select, Radio } from 'semantic-
 import MenuSistema from "../../MenuSistema";
 import { Link,useLocation } from "react-router-dom";
 
-export default function FormCliente () {
+export default function FormEntregador () {
 
     const { state } = useLocation();
     const [idEntregador, setEntregador] = useState();
+
     const [nome, setNome] = useState();
     const [cpf, setCpf] = useState();
     const [dataNascimento, setDataNascimento] = useState();
@@ -34,7 +35,7 @@ export default function FormCliente () {
                         setEntregador(response.data.id)
                         setNome(response.data.nome)
                         setCpf(response.data.cpf)
-                        setDataNascimento(response.data.dataNascimento)
+                        setDataNascimento(formatarData(response.data.dataNascimento))
                         setFoneCelular(response.data.foneCelular)
                         setFoneFixo(response.data.foneFixo)
                         setRG(response.data.rg)
@@ -77,17 +78,34 @@ export default function FormCliente () {
         if (idEntregador != null) { //Alteração:
             axios.put("http://localhost:8080/api/entregador/" + idEntregador, entregadorRequest)
             .then((response) => { console.log('Entregador alterado com sucesso.') })
-            .catch((error) => { console.log('Erro ao alter um entregador.') })
+            .catch((error) => { console.log('Erro ao alter um cliente.') })
         } else { //Cadastro:
             axios.post("http://localhost:8080/api/entregador", entregadorRequest)
             .then((response) => { console.log('Entregador cadastrado com sucesso.') })
-            .catch((error) => { console.log('Erro ao incluir o entregador.') })
+            .catch((error) => { console.log('Erro ao incluir o cliente.') })
         }
 }
+
+    function formatarData(dataParam) {
+
+        if (dataParam === null || dataParam === '' || dataParam === undefined) {
+            return ''
+        }
+
+        let arrayData = dataParam.split('-');
+        return arrayData[2] + '/' + arrayData[1] + '/' + arrayData[0];
+    }
 
     return (
 
         <div>
+
+            { idEntregador === undefined &&
+                <h2> <span style={{color: 'darkgray'}}> Entregador &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro</h2>
+            }
+            { idEntregador !== undefined &&
+                <h2> <span style={{color: 'darkgray'}}> Entregador &nbsp;<Icon name='angle double right' size="small" /> </span> Alteração</h2>
+            }
 
         <MenuSistema tela={'entregador'} />
 
@@ -280,7 +298,7 @@ export default function FormCliente () {
                         
                         <div style={{marginTop: '4%'}}>
 
-                            <Link to={'/list-cliente'}>
+                            <Link to={'/list-entregador'}>
                                 <Button
                                     type="button"
                                     inverted
