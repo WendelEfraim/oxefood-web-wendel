@@ -9,7 +9,8 @@ export default function ListEntregador () {
     const [lista, setLista] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const [idRemover, setIdRemover] = useState();
-    
+    const [openView, setOpenView] = useState(false);
+    const [idView, setIdView] = useState();
     useEffect(() => {
         carregarLista();
     }, [])
@@ -34,6 +35,19 @@ export default function ListEntregador () {
 function confirmaRemover(id) {
     setOpenModal(true)
     setIdRemover(id)
+}
+
+function confirmarVisualizar(id) {
+    setOpenView(true)
+    setIdView(id)
+}
+
+function carregarEntregador() {
+
+    axios.get("http://localhost:8080/api/entregador/" + idView)
+    .then((response) => {
+        setLista(response.data)
+    })
 }
 
 async function remover() {
@@ -126,7 +140,9 @@ async function remover() {
                                                 circular
                                                 color='blue'
                                                 title='Clique aqui para remover este entregador'
-                                                icon>
+                                                icon
+                                                onClick={e => confirmarVisualizar(entregador.id)}
+                                                >
                                                     <Icon name='eye' />
                                         </Button>&nbsp;
 
@@ -146,16 +162,57 @@ async function remover() {
                 open={openModal}
             >
                 <Header icon>
-                    <Icon name='trash' />
-                    <div style={{marginTop: '5%'}}> Tem certeza que deseja remover esse registro? </div>
+                    <Icon name='eye' />
+                    <div style={{marginTop: '5%'}}> TABELA DE VISUALIZAR DADOS DO ENTREGADOR </div>
                 </Header>
                 <Modal.Actions>
                     <Button basic color='red' inverted onClick={() => setOpenModal(false)}>
-                        <Icon name='remove' /> Não
+                        <Icon name='remove' /> fechar
                     </Button>
                     <Button color='green' inverted onClick={() => remover()}>
                         <Icon name='checkmark' /> Sim
                     </Button>
+                </Modal.Actions>
+            </Modal>
+                {/* VISUALIZAR */}
+            <Modal
+                basic
+                onClose={() => setOpenView(false)}
+                onOpen={() => setOpenModal(true)}
+                open={openView}
+            >
+                <Header icon>
+                    <Icon name='eye' />
+                    <div style={{marginTop: '5%'}}>
+                        <Table color='orange' sortable celled>
+
+                    <Table.Body>
+
+                        { lista.map(entregador => (
+
+                                <Table.Row key={entregador.id}>
+                                    <Table.Cell>
+                                        Nome: {entregador.nome}<br></br>
+                                        Cpf: {entregador.cpf}<br></br>
+                                        Data de Nascimento: {formatarData(entregador.dataNascimento)}<br></br>
+                                        Celular: {entregador.foneCelular}<br></br>
+                                        Fixo: {entregador.foneFixo}<br></br>
+                                        Rg: {entregador.rg}<br></br>
+                                        Entregas Realizadas: {entregador.entregasRealizadas}<br></br>
+                                    </Table.Cell>
+                                    
+                                </Table.Row>
+                            ))}
+
+                            </Table.Body>
+                    </Table>
+                    </div>
+                </Header>
+                <Modal.Actions>
+                    <Button basic color='red' inverted onClick={() => setOpenView(false)}>
+                        <Icon name='remove' /> Fechar
+                    </Button>
+
                 </Modal.Actions>
             </Modal>
         </div>

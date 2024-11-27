@@ -5,34 +5,18 @@ import { Button, Container, Divider, Form, Icon, Select, Radio } from 'semantic-
 import MenuSistema from "../../MenuSistema";
 import { Link,useLocation } from "react-router-dom";
 
+
 export default function FormEntregador () {
 
     const { state } = useLocation();
-    const [idEntregador, setEntregador] = useState();
+    const [idEntregador, setIdEntregador] = useState();
 
-    const [nome, setNome] = useState();
-    const [cpf, setCpf] = useState();
-    const [dataNascimento, setDataNascimento] = useState();
-    const [foneCelular, setFoneCelular] = useState();
-    const [foneFixo, setFoneFixo] = useState();
-    const [rg, setRG] = useState();
-    const [entregasRealizadas, setEntregasRealizadas] = useState();
-    const [valorFrete, setValorFrete] = useState();
-    const [rua, setRua] = useState();
-    const [numeroEndereco, setNumeroEndereco] = useState();
-    const [bairro, setBairro] = useState();
-    const [cidade, setCidade] = useState();
-    const [cep, setCep] = useState();
-    const [uf, setUf] = useState();
-    const [complemento, setComplemento] = useState();
-    const [ativo, setAtivo] = useState();
-    
 
     useEffect(() => {
         if (state != null && state.id != null) {
             axios.get("http://localhost:8080/api/entregador/" + state.id)
 .then((response) => {
-                        setEntregador(response.data.id)
+                        setIdEntregador(response.data.id)
                         setNome(response.data.nome)
                         setCpf(response.data.cpf)
                         setDataNascimento(formatarData(response.data.dataNascimento))
@@ -52,6 +36,26 @@ export default function FormEntregador () {
             })
         }
 }, [state])
+
+    const [nome, setNome] = useState();
+    const [cpf, setCpf] = useState();
+    const [dataNascimento, setDataNascimento] = useState();
+    const [foneCelular, setFoneCelular] = useState();
+    const [foneFixo, setFoneFixo] = useState();
+    const [rg, setRG] = useState();
+    const [entregasRealizadas, setEntregasRealizadas] = useState();
+    const [valorFrete, setValorFrete] = useState();
+    const [rua, setRua] = useState();
+    const [numeroEndereco, setNumeroEndereco] = useState();
+    const [bairro, setBairro] = useState();
+    const [cidade, setCidade] = useState();
+    const [cep, setCep] = useState();
+    const [uf, setUf] = useState();
+    const [complemento, setComplemento] = useState();
+    const [ativo, setAtivo] = useState();
+    
+
+
 
 
     function salvar() {
@@ -99,7 +103,6 @@ export default function FormEntregador () {
     return (
 
         <div>
-
             { idEntregador === undefined &&
                 <h2> <span style={{color: 'darkgray'}}> Entregador &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro</h2>
             }
