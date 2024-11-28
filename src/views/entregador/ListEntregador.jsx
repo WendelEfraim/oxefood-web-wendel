@@ -188,6 +188,15 @@ async function remover() {
                                         Fixo: {openView.foneFixo}<br></br>
                                         Rg: {openView.rg}<br></br>
                                         Entregas Realizadas: {openView.entregasRealizadas}<br></br>
+                                        Valor do Frete: {openView.valorFrete}<br></br>
+                                        Rua: {openView.rua}<br></br>
+                                        Numero: {openView.numeroEndereco}<br></br>
+                                        Bairro: {openView.bairro}<br></br>
+                                        Cidade: {openView.cidade}<br></br>
+                                        Cep: {openView.cep}<br></br>
+                                        Uf: {openView.uf}<br></br>
+                                        Complemento: {openView.complemento}<br></br>
+                                        Ativo: {openView.ativo}<br></br>
                                     </Table.Cell>
                                     
                                 </Table.Row>
