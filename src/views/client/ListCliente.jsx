@@ -31,7 +31,7 @@ export default function ListCliente () {
     }
 
     let arrayData = dataParam.split('-');
-    return arrayData[2] + '/' + arrayData[1] + '/' + arrayData[0];
+    return [arrayData[2],arrayData[1],arrayData[0]].join("/")
 }
 
 function confirmaRemover(id) {

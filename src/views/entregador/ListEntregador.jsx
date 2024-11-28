@@ -10,7 +10,7 @@ export default function ListEntregador () {
     const [openModal, setOpenModal] = useState(false);
     const [idRemover, setIdRemover] = useState();
     const [openView, setOpenView] = useState(false);
-    const [idView, setIdView] = useState();
+
     useEffect(() => {
         carregarLista();
     }, [])
@@ -37,18 +37,7 @@ function confirmaRemover(id) {
     setIdRemover(id)
 }
 
-function confirmarVisualizar(id) {
-    setOpenView(true)
-    setIdView(id)
-}
 
-function carregarEntregador() {
-
-    axios.get("http://localhost:8080/api/entregador/" + idView)
-    .then((response) => {
-        setLista(response.data)
-    })
-}
 
 async function remover() {
 
@@ -141,7 +130,7 @@ async function remover() {
                                                 color='blue'
                                                 title='Clique aqui para remover este entregador'
                                                 icon
-                                                onClick={e => confirmarVisualizar(entregador.id)}
+                                                onClick={e => setOpenView(entregador)}
                                                 >
                                                     <Icon name='eye' />
                                         </Button>&nbsp;
@@ -162,8 +151,8 @@ async function remover() {
                 open={openModal}
             >
                 <Header icon>
-                    <Icon name='eye' />
-                    <div style={{marginTop: '5%'}}> TABELA DE VISUALIZAR DADOS DO ENTREGADOR </div>
+                    <Icon name='trash' />
+                    <div style={{marginTop: '5%'}}> Tem certeza que deseja remover esse registro? </div>
                 </Header>
                 <Modal.Actions>
                     <Button basic color='red' inverted onClick={() => setOpenModal(false)}>
@@ -178,7 +167,7 @@ async function remover() {
             <Modal
                 basic
                 onClose={() => setOpenView(false)}
-                onOpen={() => setOpenModal(true)}
+                onOpen={() => setOpenView(true)}
                 open={openView}
             >
                 <Header icon>
@@ -188,21 +177,21 @@ async function remover() {
 
                     <Table.Body>
 
-                        { lista.map(entregador => (
+                        
 
-                                <Table.Row key={entregador.id}>
+                                <Table.Row key={openView.id}>
                                     <Table.Cell>
-                                        Nome: {entregador.nome}<br></br>
-                                        Cpf: {entregador.cpf}<br></br>
-                                        Data de Nascimento: {formatarData(entregador.dataNascimento)}<br></br>
-                                        Celular: {entregador.foneCelular}<br></br>
-                                        Fixo: {entregador.foneFixo}<br></br>
-                                        Rg: {entregador.rg}<br></br>
-                                        Entregas Realizadas: {entregador.entregasRealizadas}<br></br>
+                                        Nome: {openView.nome}<br></br>
+                                        Cpf: {openView.cpf}<br></br>
+                                        Data de Nascimento: {formatarData(openView.dataNascimento)}<br></br>
+                                        Celular: {openView.foneCelular}<br></br>
+                                        Fixo: {openView.foneFixo}<br></br>
+                                        Rg: {openView.rg}<br></br>
+                                        Entregas Realizadas: {openView.entregasRealizadas}<br></br>
                                     </Table.Cell>
                                     
                                 </Table.Row>
-                            ))}
+                        
 
                             </Table.Body>
                     </Table>
