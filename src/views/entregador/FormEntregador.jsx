@@ -10,6 +10,8 @@ export default function FormEntregador() {
 
     const { state } = useLocation();
     const [idEntregador, setIdEntregador] = useState();
+    const [enderecoEstado, setEnderecoEstado] = useState();
+
     const [nome, setNome] = useState();
     const [cpf, setCpf] = useState();
     const [dataNascimento, setDataNascimento] = useState();
@@ -26,6 +28,36 @@ export default function FormEntregador() {
     const [uf, setUf] = useState();
     const [complemento, setComplemento] = useState();
     const [ativo, setAtivo] = useState();
+
+    const estados = [
+        { key: 'ac', value: 'ac', text: 'Acre' },
+        { key: 'al', value: 'al', text: 'Alagoas' },
+        { key: 'ap', value: 'ap', text: 'Amapá' },
+        { key: 'am', value: 'am', text: 'Amazonas' },
+        { key: 'ba', value: 'ba', text: 'Bahia' },
+        { key: 'ce', value: 'ce', text: 'Ceará' },
+        { key: 'df', value: 'df', text: 'Distrito Federal' },
+        { key: 'es', value: 'es', text: 'Espírito Santo' },
+        { key: 'go', value: 'go', text: 'Goiás' },
+        { key: 'ma', value: 'ma', text: 'Maranhão' },
+        { key: 'mt', value: 'mt', text: 'Mato Grosso' },
+        { key: 'ms', value: 'ms', text: 'Mato Grosso do Sul' },
+        { key: 'mg', value: 'mg', text: 'Minas Gerais' },
+        { key: 'pa', value: 'pa', text: 'Pará' },
+        { key: 'pb', value: 'pb', text: 'Paraíba' },
+        { key: 'pr', value: 'pr', text: 'Paraná' },
+        { key: 'pe', value: 'pe', text: 'Pernambuco' },
+        { key: 'pi', value: 'pi', text: 'Piauí' },
+        { key: 'rj', value: 'rj', text: 'Rio de Janeiro' },
+        { key: 'rn', value: 'rn', text: 'Rio Grande do Norte' },
+        { key: 'rs', value: 'rs', text: 'Rio Grande do Sul' },
+        { key: 'ro', value: 'ro', text: 'Rondônia' },
+        { key: 'rr', value: 'rr', text: 'Roraima' },
+        { key: 'sc', value: 'sc', text: 'Santa Catarina' },
+        { key: 'sp', value: 'sp', text: 'São Paulo' },
+        { key: 'se', value: 'se', text: 'Sergipe' },
+        { key: 'to', value: 'to', text: 'Tocantins' },
+    ];
 
 
     useEffect(() => {
@@ -48,6 +80,14 @@ export default function FormEntregador() {
                     setCep(response.data.cep)
                     setUf(response.data.uf)
                     setComplemento(response.data.complemento)
+                    setAtivo(response.data.ativo)
+                     const estado = response.data.enderecoEstado;
+                     setEnderecoEstado(estado)
+ 
+                     const estadoSelecionado = estados.find(estadoItem => estadoItem.text === estado);
+                     if (estadoSelecionado) {
+                         setEnderecoEstado(estadoSelecionado.key);
+                     }
                     setAtivo(response.data.ativo)
                 })
         }
@@ -283,6 +323,8 @@ export default function FormEntregador() {
                                     onChange={e => setUf(e.target.value)}
                                 >
                                     <Select
+                                    options={estados}
+                                    value={enderecoEstado}
                                     placeholder="Selecione"
                                     width={80}>
                                     </Select>
@@ -295,7 +337,7 @@ export default function FormEntregador() {
                                     fluid
                                     label='Complemento'
                                     value={complemento}
-                                    onChange={e => setComplemento(e.target.value)}
+                                    onChange={e => setEnderecoEstado(e.target.value)}
                                 >
                                 </Form.Input>
                             </Form.Group>
